@@ -87,7 +87,7 @@
     운영 DB에 부하를 주지 않고 분석 작업과 계산 작업을 수행하기 위해 별도의 데이터베이스를 사용했습니다. 시계열 데이터를 다룬다는 점과 집계 쿼리를 반복 수행하기 위해, 운영 서비스 성능에 영향을 주지 않도록 했습니다.
 
 </details>
-
+<br><br>
 <h2>📌 구축 쿼리 (DDL)</h2>
 
 <details><summary> 🙆 사용자 테이블</summary><div dir="auto">
@@ -393,10 +393,8 @@
 </div>
 </details>
 <br>
+  <br><br>
 <h2>📌 SQL 테스트</h2>
 <div align="center">
   <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">🔗 SQL 테스트 바로가기</a>
 </div>
-
-
-
