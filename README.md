@@ -388,15 +388,10 @@
 </div>
 </details>
 <br>
+<h2>📌 SQL 테스트</h2>
+<div align="center">
+  <a href="[https://your-notion-link.com](https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7)" target="_blank">🔗 SQL 테스트 노션 페이지 바로가기</a>
+</div>
 
-<h2>📌 프로시저 구현</h2>
-
-<details><summary>🙆 회원 프로시저</summary></details>
-<details><summary>🏢 회사 프로시저</summary></details>
-<details><summary>📋 이력서 프로시저</summary></details>
-<details><summary>📣 채용 공고 프로시저</summary></details>
-<details><summary>⏲ 지원 내역 프로시저</summary></details>
-<details><summary>📎 스크랩 프로시저</summary></details>
-<details><summary>⭐ 기업 리뷰 프로시저</summary></details>
 
 
