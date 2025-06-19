@@ -36,7 +36,7 @@
 </div>
 <br>
 
-## 📝 요구 사항 명세서
+## ⬆️ 요구 사항 명세서 바로가기
 ![요구사항2](./02_요구사항%20정의서.png)
 <div align="center">
   <a href="https://docs.google.com/spreadsheets/d/1xPRM4gAtze_Mu-vF_rwFMtvYI7baOceUvJYlSDdcA-o/edit?gid=1400486362#gid=1400486362" target="_blank">
@@ -395,7 +395,7 @@
 <br>
 <h2>📌 SQL 테스트</h2>
 <div align="center">
-  <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">🔗 SQL 테스트 노션 페이지 바로가기</a>
+  <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">⬆️ SQL 테스트 노션 페이지 바로가기</a>
 </div>
 
 
