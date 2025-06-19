@@ -112,24 +112,52 @@
 )</pre>
 </div>
 </details>
-<details><summary>📒 게시판 테이블</summary>CREATE TABLE boards (
-     board_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+<details><summary>📒 게시판 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE boards (
+    board_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     users_id BIGINT NOT NULL,
-     updated_at TIMESTAMP NULL DEFAULT NULL,
-     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     del_yn VARCHAR(1) DEFAULT 'N',
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    del_yn VARCHAR(1) DEFAULT 'N',
     title VARCHAR(255),
-     contents VARCHAR(3000) NOT NULL,
-     FOREIGN KEY (users_id) REFERENCES users(id)
- );</details>
-<details><summary>✍️ 댓글 테이블</summary>CREATE TABLE comments (
+    contents VARCHAR(3000) NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES users(id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">boards</span> (
+    board_id <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    users_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    updated_at <span class="pl-k">TIMESTAMP</span> <span class="pl-k">NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">NULL</span>,
+    created_at <span class="pl-k">TIMESTAMP</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">CURRENT_TIMESTAMP</span>,
+    del_yn <span class="pl-k">VARCHAR</span>(<span class="pl-c1">1</span>) <span class="pl-k">DEFAULT</span> <span class="pl-s">'N'</span>,
+    title <span class="pl-k">VARCHAR</span>(<span class="pl-c1">255</span>),
+    contents <span class="pl-k">VARCHAR</span>(<span class="pl-c1">3000</span>) <span class="pl-k">NOT NULL</span>,
+    <span class="pl-k">FOREIGN KEY</span> (users_id) <span class="pl-k">REFERENCES</span> users(id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>✍️ 댓글 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE comments (
     idx BIGINT AUTO_INCREMENT PRIMARY KEY,
     board_id BIGINT NOT NULL,
-    comment VARCHAR(1000),
-    comment_date DATE,
+    comment VARCHAR(1000) NOT NULL,
+    comment_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    del_yn VARCHAR(1) DEFAULT 'N',
     FOREIGN KEY (board_id) REFERENCES boards(board_id)
-);</details>
-<details><summary>🔔 알림 테이블</summary>CREATE TABLE notifications (
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">comments</span> (
+    idx <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    board_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    comment <span class="pl-k">VARCHAR</span>(<span class="pl-c1">1000</span>) <span class="pl-k">NOT NULL</span>,
+    comment_date <span class="pl-k">TIMESTAMP</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">CURRENT_TIMESTAMP</span>,
+    del_yn <span class="pl-k">VARCHAR</span>(<span class="pl-c1">1</span>) <span class="pl-k">DEFAULT</span> <span class="pl-s">'N'</span>,
+    <span class="pl-k">FOREIGN KEY</span> (board_id) <span class="pl-k">REFERENCES</span> boards(board_id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>🔔 알림 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
     status ENUM('sent', 'failed', 'read') NOT NULL,
@@ -137,7 +165,19 @@
     content VARCHAR(255),
     created_at DATE,
     FOREIGN KEY (user_id) REFERENCES users(id)
-);</details>
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">notifications</span> (
+    id <span class="pl-k">INT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    user_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    status <span class="pl-k">ENUM</span>(<span class="pl-s">'sent'</span>, <span class="pl-s">'failed'</span>, <span class="pl-s">'read'</span>) <span class="pl-k">NOT NULL</span>,
+    title <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
+    content <span class="pl-k">VARCHAR</span>(<span class="pl-c1">255</span>),
+    created_at <span class="pl-k">DATE</span>,
+    <span class="pl-k">FOREIGN KEY</span> (user_id) <span class="pl-k">REFERENCES</span> users(id)
+)</pre>
+</div>
+</div>
+</details>
 <details><summary>🍅 작물 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Crops (
     id INT NOT NULL,
