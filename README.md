@@ -38,7 +38,6 @@
 
 ## 📝 요구 사항 명세서
 ![요구사항2](./02_요구사항%20정의서.png)
-<h2>📌 SQL 테스트</h2>
 <div align="center">
   <a href="https://docs.google.com/spreadsheets/d/1xPRM4gAtze_Mu-vF_rwFMtvYI7baOceUvJYlSDdcA-o/edit?gid=1400486362#gid=1400486362" target="_blank">
     📄 요구사항 정의서
