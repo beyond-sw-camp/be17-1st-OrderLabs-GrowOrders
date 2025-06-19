@@ -1,16 +1,14 @@
-![제목 없는 다이어그램 drawio (6)](https://github.com/user-attachments/assets/ef0f38de-3cbd-496c-9786-5433ce05b41c)
+![OrderLabs](https://github.com/user-attachments/assets/ef0f38de-3cbd-496c-9786-5433ce05b41c)
 <h1 align="center" style="color: #50C878;"> OrderLabs 🌿</h1>
 
 
 <br><br>
 
 
-
-
 ## 🧑🏻‍🌾 프로젝트 개요
 
 <div>
-  
+
   **"자라는 만큼만 주문받는다."** <br>
 </div>
 
@@ -21,7 +19,9 @@
 분석하여 언제 주문을 받을 수 있고, 언제 배송이 가능한지를 예측 및 자동 통제합니다. 
 이를 통해 생산자는 재고 과잉이나 무리한 주문을 방지하고, 소비자는 더 신선하고 정확한 
 일정으로 상품을 수령할 수 있습니다. 
-생물은 자라야 팔 수 있습니다. 우리는 그 ‘자라는 과정’까지 주문 시스템에 담습니다.
+생물은 자라야 팔 수 있습니다. <br><br>
+
+우리는 그 ‘자라는 과정’까지 주문 시스템에 담습니다.
 
 <br><br>
 
@@ -37,7 +37,7 @@
 <br>
 
 ## 🔗요구 사항 명세서 바로가기
-![요구사항2](./02_요구사항%20정의서.png)
+![요구사항](./02_요구사항%20정의서.png)
 <div align="center">
   <a href="https://docs.google.com/spreadsheets/d/1xPRM4gAtze_Mu-vF_rwFMtvYI7baOceUvJYlSDdcA-o/edit?gid=1400486362#gid=1400486362" target="_blank">
     🔗 요구사항 명세서 바로가기
@@ -48,9 +48,10 @@
 
 ## ☁️ ERD
 ![OrderLabs-erd](./03_ERD.png)
-<div align=center>
-  
-  [🔗ERD CLOUD 바로가기](https://www.erdcloud.com/d/GjgSeJRtpNC9jNFpG)
+<div align="center">
+  <a href="https://www.erdcloud.com/d/GjgSeJRtpNC9jNFpG" target="_blank">
+    🔗 ERD 바로가기
+  </a>
 </div>
 
 <br><br>
@@ -61,32 +62,21 @@
 <br><br>
 
 <div align=center>
-    저희는 데이터 서버를 6대를 구성하였고 <br>
+    저희는 데이터베이스 서버를 6대를 구성하였고 <br>
     두 서버는 Replication, 세 서버는 Clustering 나머지 한 서버는 연산을 위한 전용 서버로 구성하였습니다.
 </div>
 
 <br><br>
 
-<details>
-  <summary>Why replication?</summary>
-  <br>
-    운영 서버는 단일 DB 장애 시 전체 서비스가 중단되는 것을 막기 위해 Data Replication을 사용했습니다. 예를 들어, Master-Slave 구조로 구성해서 Master 장애 시 Slave로 자동 전환(Failover)이 가능하도록 했습니다. 이를 통해 서비스의 가용성과 안정성을 최우선으로 하였습니다.
-  <br>
-</details>
+### Why replication?
+  운영 서버는 단일 DB 장애 시 전체 서비스가 중단되는 것을 막기 위해 데이터 복제(Data Replication)을 사용했습니다. 예를 들어, Master-Slave 구조로 구성해서 Master 장애 시 Slave로 자동 전환(Failover)이 가능하도록 했습니다. 이를 통해 서비스의 가용성과 안정성을 최우선으로 하였습니다.
 
-<details>
-  <summary>Why database clustering?</summary>
-  <br>
-    작물 상태나 온도, 습도, 일사량 등의 실시간 기상 데이터가 끊기면 자동화 시스템이 오작동할 수 있어, 클러스터로 장애 대비를 했습니다.
+### Why database clustering?
+  작물 상태나 온도, 습도, 일사량 등의 실시간 기상 데이터가 끊기면 자동화 시스템이 오작동할 수 있어, 클러스터(Clustering)로 장애 대비를 했습니다.
 
-</details>
+### Why Calculate database?
+  운영 DB에 부하를 주지 않고 분석 작업과 계산 작업을 수행하기 위해 별도의 데이터베이스를 사용했습니다. 시계열 데이터를 다룬다는 점과 집계 쿼리를 반복 수행하기 위해, 운영 서비스 성능에 영향을 주지 않도록 했습니다.
 
-<details>
-  <summary>Why Calculate database?</summary>
-  <br>
-    운영 DB에 부하를 주지 않고 분석 작업과 계산 작업을 수행하기 위해 별도의 데이터베이스를 사용했습니다. 시계열 데이터를 다룬다는 점과 집계 쿼리를 반복 수행하기 위해, 운영 서비스 성능에 영향을 주지 않도록 했습니다.
-
-</details>
 <br><br>
 <h2>📌 구축 쿼리 (DDL)</h2>
 
@@ -392,8 +382,25 @@
 </div>
 </div>
 </details>
+<br><br>
+
+## SQL 튜닝
+<h4> Join문대신 Select 문을 사용하여 시간 단축 향상 </h4>
+  
 <br>
+
+  ![OrderLabs-sql](./sql1.png)
+
+  ![OrderLabs-sql](./sql2.png)
+
   <br><br>
+  users 1000, predictions 100, crops 100, orders 101000개의 데이터를 Full Scan 했을 떄, 속도가 0.063에서 0.047로 단축되었다.
+
+  <br><br>
+
+  이후에는 인덱스 적용 및 반정규화를 통해 데이터베이스 쿼리 성능을 향상시키고, JMeter로 부하 테스트를 진행한 뒤, Prometheus와 Grafana를 활용해 성능 변화 양상을 시각적으로 관찰할 예정이다.
+
+<br>
 <h2>📌 SQL 테스트</h2>
 <div align="center">
   <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">🔗 SQL 테스트 바로가기</a>
