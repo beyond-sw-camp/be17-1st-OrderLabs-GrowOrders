@@ -112,6 +112,32 @@
 )</pre>
 </div>
 </details>
+<details><summary>📒 게시판 테이블</summary>CREATE TABLE boards (
+     board_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    users_id BIGINT NOT NULL,
+     updated_at TIMESTAMP NULL DEFAULT NULL,
+     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     del_yn VARCHAR(1) DEFAULT 'N',
+    title VARCHAR(255),
+     contents VARCHAR(3000) NOT NULL,
+     FOREIGN KEY (users_id) REFERENCES users(id)
+ );</details>
+<details><summary>✍️ 댓글 테이블</summary>CREATE TABLE comments (
+    idx BIGINT AUTO_INCREMENT PRIMARY KEY,
+    board_id BIGINT NOT NULL,
+    comment VARCHAR(1000),
+    comment_date DATE,
+    FOREIGN KEY (board_id) REFERENCES boards(board_id)
+);</details>
+<details><summary>🔔 알림 테이블</summary>CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    status ENUM('sent', 'failed', 'read') NOT NULL,
+    title VARCHAR(50),
+    content VARCHAR(255),
+    created_at DATE,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</details>
 <details><summary>🍅 작물 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Crops (
     id INT NOT NULL,
@@ -257,6 +283,8 @@
 </div>
 </div>
 </details>
+<details><summary>🔖  테이블</summary></details>
+<details><summary>🔖 태그 리뷰 테이블</summary></details>
 <details><summary>🔖 태그 테이블</summary></details>
 <details><summary>🔖 태그 리뷰 테이블</summary></details>
 
