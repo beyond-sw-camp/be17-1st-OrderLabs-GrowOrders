@@ -86,7 +86,7 @@
 <h2>📌 구축 쿼리 (DDL)</h2>
 
 <details><summary> 회원 테이블</summary><div dir="auto">
-<div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(10) NOT NULL,
     email VARCHAR(20) NOT NULL UNIQUE,
@@ -97,16 +97,22 @@
     address VARCHAR(50) NOT NULL,
     role ENUM('일반 사용자', '생산자') NOT NULL,
     password_hash VARCHAR(100) NOT NULL
-);"><pre><span class="pl-k">create</span> <span class="pl-k">table</span> <span class="pl-en">member</span> (
-    id			<span class="pl-k">bigint</span> <span class="pl-k">primary key</span> auto_increment,
-    email			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span> unique,
-    name			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span>,
-    password		<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span>,
-    account_date	datetime <span class="pl-k">not null</span> default <span class="pl-c1">CURRENT_TIMESTAMP</span>,
-    member_type		enum(<span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>company<span class="pl-pds">'</span></span>) default <span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>,
-    state			enum(<span class="pl-s"><span class="pl-pds">'</span>online<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>offline<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>withdraw<span class="pl-pds">'</span></span>) default <span class="pl-s"><span class="pl-pds">'</span>offline<span class="pl-pds">'</span></span>
-)</pre></div>
-</div></details>
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">users</span> (
+    id <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">10</span>) <span class="pl-k">NOT NULL</span>,
+    email <span class="pl-k">VARCHAR</span>(<span class="pl-c1">20</span>) <span class="pl-k">NOT NULL</span> <span class="pl-k">UNIQUE</span>,
+    birth_date <span class="pl-k">DATETIME</span> <span class="pl-k">NOT NULL</span>, 
+    phone_number <span class="pl-k">VARCHAR</span>(<span class="pl-c1">13</span>) <span class="pl-k">UNIQUE</span>,
+    created_at <span class="pl-k">DATETIME</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">CURRENT_TIMESTAMP</span>,
+    home_number <span class="pl-k">VARCHAR</span>(<span class="pl-c1">20</span>) <span class="pl-k">UNIQUE</span>,
+    address <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>) <span class="pl-k">NOT NULL</span>,
+    role <span class="pl-k">ENUM</span>(<span class="pl-s">'일반 사용자'</span>, <span class="pl-s">'생산자'</span>) <span class="pl-k">NOT NULL</span>,
+    password_hash <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>
+)</pre>
+</div>
+</div>
+</details>
 <details><summary>🏢 회사 테이블</summary></details>
 <details><summary>📋 이력서 테이블</summary></details>
 <details><summary>📣 채용 공고 테이블</summary></details>
