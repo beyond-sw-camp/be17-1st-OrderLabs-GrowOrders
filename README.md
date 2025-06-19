@@ -88,15 +88,18 @@
 <details>
 <summary>🙆 회원 테이블</summary>
 <div dir="auto">
-<div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="create table member (
-    id			bigint primary key auto_increment,
-    email			varchar(255) not null unique,
-    name			varchar(255) not null,
-    password		varchar(255) not null,
-    account_date	datetime not null default CURRENT_TIMESTAMP,
-    member_type		enum('user', 'company') default 'user',
-    state			enum('online', 'offline', 'withdraw') default 'offline'
-)"><pre><span class="pl-k">create</span> <span class="pl-k">table</span> <span class="pl-en">member</span> (
+<div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(10) NOT NULL,
+    email VARCHAR(20) NOT NULL UNIQUE,
+    birth_date DATETIME NOT NULL, 
+    phone_number VARCHAR(13) UNIQUE,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    home_number VARCHAR(20) UNIQUE,
+    address VARCHAR(50) NOT NULL,
+    role ENUM('일반 사용자', '생산자') NOT NULL,
+    password_hash VARCHAR(100) NOT NULL
+);"><pre><span class="pl-k">create</span> <span class="pl-k">table</span> <span class="pl-en">member</span> (
     id			<span class="pl-k">bigint</span> <span class="pl-k">primary key</span> auto_increment,
     email			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span> unique,
     name			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span>,
