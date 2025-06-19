@@ -112,7 +112,7 @@
 )</pre>
 </div>
 </details>
-<details><summary>🏢 작물 테이블</summary><div dir="auto">
+<details><summary>🍅 작물 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Crops (
     id INT NOT NULL,
     farm_id BIGINT NOT NULL,
@@ -138,9 +138,33 @@
     <span class="pl-k">FOREIGN KEY</span> (farm_id) <span class="pl-k">REFERENCES</span> Farm(farm_id)
 )</pre>
 </div>
+</details>
+<details><summary>🌿 작물 상태 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE crops_state (
+    id INT AUTO_INCREMENT,
+    crops_id INT NOT NULL,
+    crops_state ENUM('growing', 'finished', 'discarded'),
+    growth_size FLOAT,
+    health_state VARCHAR(50),
+    sow_start_date DATE,
+    price FLOAT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (crops_id) REFERENCES crops(id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">crops_state</span> (
+    id <span class="pl-k">INT</span> <span class="pl-k">AUTO_INCREMENT</span>,
+    crops_id <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,
+    crops_state <span class="pl-k">ENUM</span>(<span class="pl-s">'growing'</span>, <span class="pl-s">'finished'</span>, <span class="pl-s">'discarded'</span>),
+    growth_size <span class="pl-k">FLOAT</span>,
+    health_state <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
+    sow_start_date <span class="pl-k">DATE</span>,
+    price <span class="pl-k">FLOAT</span>,
+    <span class="pl-k">PRIMARY KEY</span> (id),
+    <span class="pl-k">FOREIGN KEY</span> (crops_id) <span class="pl-k">REFERENCES</span> crops(id)
+)</pre>
+</div>
 </div>
 </details>
-<details><summary>📋 이력서 테이블</summary></details>
 <details><summary>📣 채용 공고 테이블</summary></details>
 <details><summary>⏲ 지원 내역 테이블</summary></details>
 <details><summary>📎 스크랩 테이블</summary></details>
