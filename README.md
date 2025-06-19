@@ -56,7 +56,7 @@
 <br><br>
 
 ## ⚙️ 시스템 아키텍처
-![제목 없는 다이어그램 drawio (7)](https://github.com/user-attachments/assets/be58f9c4-a334-4b48-b5e4-b14264f642cf)
+![04_Architecture](https://github.com/user-attachments/assets/496a6659-1655-485e-b1da-2552b3648dd5)
 
 <br><br>
 
