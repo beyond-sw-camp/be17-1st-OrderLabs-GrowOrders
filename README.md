@@ -37,17 +37,12 @@
 <br>
 
 ## 📝 요구 사항 명세서
-![요구사항2](https://github.com/user-attachments/assets/43ee6794-4718-45e6-acca-9bacc78dfb39)
-
-<div align=center>
-
-  [⬆️요구 사항 명세 보기](https://quark-smile-890.notion.site/2b8b00aecbba447b970c7908a93fc79f?v=7147478c4da24e92acf2953eb02ae777&pvs=4)
-</div>
+![요구사항2](./02_요구사항%20정의서.png)
 
 <br><br>
 
 ## ☁️ ERD
-![OrderLabs-erd](./03.%20ERD.png)
+![OrderLabs-erd](./03_ERD.png)
 <div align=center>
   
   [⬆️ERD CLOUD 바로가기](https://www.erdcloud.com/d/GjgSeJRtpNC9jNFpG)
@@ -56,7 +51,7 @@
 <br><br>
 
 ## ⚙️ 시스템 아키텍처
-<img width="1324" alt="전체" src="./04. Architecture.png">
+<img width="1324" alt="전체" src="./04_Architecture.png">
 
 <br><br>
 
