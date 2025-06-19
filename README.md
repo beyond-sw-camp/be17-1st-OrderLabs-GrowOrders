@@ -85,7 +85,7 @@
 
 <h2>📌 구축 쿼리 (DDL)</h2>
 
-<details><summary> 회원 테이블</summary><div dir="auto">
+<details><summary> 🙆 사용자 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(10) NOT NULL,
@@ -111,9 +111,35 @@
     password_hash <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>
 )</pre>
 </div>
+</details>
+<details><summary>🏢 작물 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Crops (
+    id INT NOT NULL,
+    farm_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    item_name VARCHAR(50),
+    start_date DATE,
+    area DATE,
+    status ENUM('growing', 'finished', 'discarded'),
+    PRIMARY KEY (id, farm_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (farm_id) REFERENCES Farm(farm_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Crops</span> (
+    id <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,
+    farm_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    user_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    item_name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
+    start_date <span class="pl-k">DATE</span>,
+    area <span class="pl-k">DATE</span>,
+    status <span class="pl-k">ENUM</span>(<span class="pl-s">'growing'</span>, <span class="pl-s">'finished'</span>, <span class="pl-s">'discarded'</span>),
+    <span class="pl-k">PRIMARY KEY</span> (id, farm_id),
+    <span class="pl-k">FOREIGN KEY</span> (user_id) <span class="pl-k">REFERENCES</span> users(id),
+    <span class="pl-k">FOREIGN KEY</span> (farm_id) <span class="pl-k">REFERENCES</span> Farm(farm_id)
+)</pre>
+</div>
 </div>
 </details>
-<details><summary>🏢 회사 테이블</summary></details>
 <details><summary>📋 이력서 테이블</summary></details>
 <details><summary>📣 채용 공고 테이블</summary></details>
 <details><summary>⏲ 지원 내역 테이블</summary></details>
