@@ -390,7 +390,7 @@
 <br>
 <h2>📌 SQL 테스트</h2>
 <div align="center">
-  <a href="[https://your-notion-link.com](https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7)" target="_blank">🔗 SQL 테스트 노션 페이지 바로가기</a>
+  <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">🔗 SQL 테스트 노션 페이지 바로가기</a>
 </div>
 
 
