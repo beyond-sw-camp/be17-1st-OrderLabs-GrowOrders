@@ -165,10 +165,98 @@
 </div>
 </div>
 </details>
-<details><summary>👨‍🌾 농장 테이블</summary></details>
-<details><summary>⏲ 주문 테이블</summary></details>
-<details><summary>📎 재고 테이블</summary></details>
-<details><summary>⭐ 기업 리뷰 테이블</summary></details>
+<details><summary>👨‍🌾 농장 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Farm (
+    farm_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Farm</span> (
+    farm_id <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    user_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    <span class="pl-k">FOREIGN KEY</span> (user_id) <span class="pl-k">REFERENCES</span> users(id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>💸 주문 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Orders (
+    order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    crop_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    price INT NOT NULL,
+    status VARCHAR(50),
+    request VARCHAR(50),
+    date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (crop_id) REFERENCES crops(id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Orders</span> (
+    order_id <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    user_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    crop_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    quantity <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,
+    price <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span>,
+    status <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
+    request <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>),
+    date <span class="pl-k">DATE</span>,
+    <span class="pl-k">FOREIGN KEY</span> (user_id) <span class="pl-k">REFERENCES</span> users(id),
+    <span class="pl-k">FOREIGN KEY</span> (crop_id) <span class="pl-k">REFERENCES</span> crops(id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>🏭 재고 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Inventory (
+    idx INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    crops_id BIGINT NOT NULL,
+    farm_id BIGINT NOT NULL,
+    expected_harvest_date DATE,
+    expected_quantity INT,
+    FOREIGN KEY (crops_id) REFERENCES Crops(id),
+    FOREIGN KEY (farm_id) REFERENCES Farm(farm_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Inventory</span> (
+    idx <span class="pl-k">INT</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    crops_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    farm_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    expected_harvest_date <span class="pl-k">DATE</span>,
+    expected_quantity <span class="pl-k">INT</span>,
+    <span class="pl-k">FOREIGN KEY</span> (crops_id) <span class="pl-k">REFERENCES</span> Crops(id),
+    <span class="pl-k">FOREIGN KEY</span> (farm_id) <span class="pl-k">REFERENCES</span> Farm(farm_id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>🗳️ 배송 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Delivery (
+    id_delivery BIGINT AUTO_INCREMENT PRIMARY KEY,
+    delivery_id BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    de_yn VARCHAR(1) DEFAULT 'N',
+    courier VARCHAR(255),
+    billing_number VARCHAR(255),
+    delivery_at TIMESTAMP,
+    delivery_status ENUM('ready', 'shipping', 'delivered', 'cancelled'),
+    FOREIGN KEY (delivery_id) REFERENCES Orders(order_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Delivery</span> (
+    id_delivery <span class="pl-k">BIGINT</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    delivery_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    created_at <span class="pl-k">TIMESTAMP</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">CURRENT_TIMESTAMP</span>,
+    updated_at <span class="pl-k">TIMESTAMP</span> <span class="pl-k">NULL</span> <span class="pl-k">DEFAULT</span> <span class="pl-c1">NULL</span> <span class="pl-k">ON UPDATE</span> <span class="pl-c1">CURRENT_TIMESTAMP</span>,
+    de_yn <span class="pl-k">VARCHAR</span>(<span class="pl-c1">1</span>) <span class="pl-k">DEFAULT</span> <span class="pl-s">'N'</span>,
+    courier <span class="pl-k">VARCHAR</span>(<span class="pl-c1">255</span>),
+    billing_number <span class="pl-k">VARCHAR</span>(<span class="pl-c1">255</span>),
+    delivery_at <span class="pl-k">TIMESTAMP</span>,
+    delivery_status <span class="pl-k">ENUM</span>(<span class="pl-s">'ready'</span>, <span class="pl-s">'shipping'</span>, <span class="pl-s">'delivered'</span>, <span class="pl-s">'cancelled'</span>),
+    <span class="pl-k">FOREIGN KEY</span> (delivery_id) <span class="pl-k">REFERENCES</span> Orders(order_id)
+)</pre>
+</div>
+</div>
+</details>
 <details><summary>🔖 태그 테이블</summary></details>
 <details><summary>🔖 태그 리뷰 테이블</summary></details>
 
