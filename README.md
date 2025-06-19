@@ -84,32 +84,9 @@
 
 </details>
 
-<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">📌 구축 쿼리 (DDL)</h2><a id="user-content--구축-쿼리-ddl" class="anchor" aria-label="Permalink: 📌 구축 쿼리 (DDL)" href="#-구축-쿼리-ddl"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
-<details>
-<summary>🙆 회원 테이블</summary>
-<div dir="auto">
-<div class="highlight highlight-source-sql notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(10) NOT NULL,
-    email VARCHAR(20) NOT NULL UNIQUE,
-    birth_date DATETIME NOT NULL, 
-    phone_number VARCHAR(13) UNIQUE,
-    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    home_number VARCHAR(20) UNIQUE,
-    address VARCHAR(50) NOT NULL,
-    role ENUM('일반 사용자', '생산자') NOT NULL,
-    password_hash VARCHAR(100) NOT NULL
-);" dir="auto"><pre><span class="pl-k">create</span> <span class="pl-k">table</span> <span class="pl-en">member</span> (
-    id			<span class="pl-k">bigint</span> <span class="pl-k">primary key</span> auto_increment,
-    email			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span> unique,
-    name			<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span>,
-    password		<span class="pl-k">varchar</span>(<span class="pl-c1">255</span>) <span class="pl-k">not null</span>,
-    account_date	datetime <span class="pl-k">not null</span> default <span class="pl-c1">CURRENT_TIMESTAMP</span>,
-    member_type		enum(<span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>company<span class="pl-pds">'</span></span>) default <span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>,
-    state			enum(<span class="pl-s"><span class="pl-pds">'</span>online<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>offline<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>withdraw<span class="pl-pds">'</span></span>) default <span class="pl-s"><span class="pl-pds">'</span>offline<span class="pl-pds">'</span></span>
-)</pre></div>
-</div>
+<h2>📌 구축 쿼리 (DDL)</h2>
 
+<details><summary>🙆 회원 테이블</summary></details>
 <details><summary>🏢 회사 테이블</summary></details>
 <details><summary>📋 이력서 테이블</summary></details>
 <details><summary>📣 채용 공고 테이블</summary></details>
@@ -118,7 +95,11 @@
 <details><summary>⭐ 기업 리뷰 테이블</summary></details>
 <details><summary>🔖 태그 테이블</summary></details>
 <details><summary>🔖 태그 리뷰 테이블</summary></details>
-<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto" tabindex="-1">📌 프로시저 구현</h2><a aria-label="Permalink: 📌 프로시저 구현" class="anchor" href="#-프로시저-구현" id="user-content--프로시저-구현"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+
+<br>
+
+<h2>📌 프로시저 구현</h2>
+
 <details><summary>🙆 회원 프로시저</summary></details>
 <details><summary>🏢 회사 프로시저</summary></details>
 <details><summary>📋 이력서 프로시저</summary></details>
@@ -126,3 +107,5 @@
 <details><summary>⏲ 지원 내역 프로시저</summary></details>
 <details><summary>📎 스크랩 프로시저</summary></details>
 <details><summary>⭐ 기업 리뷰 프로시저</summary></details>
+
+
