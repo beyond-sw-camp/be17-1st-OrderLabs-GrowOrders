@@ -1,6 +1,5 @@
-![제목 없는 다이어그램 drawio (5)](https://github.com/user-attachments/assets/4b609c7a-039d-4e9f-8b08-7119738366bc)
+![제목 없는 다이어그램 drawio (6)](https://github.com/user-attachments/assets/ef0f38de-3cbd-496c-9786-5433ce05b41c)
 <h1 align="center" style="color: #50C878;"> OrderLabs 🌿</h1>
-
 
 
 <br><br>
@@ -86,7 +85,18 @@
 
 <h2>📌 구축 쿼리 (DDL)</h2>
 
-<details><summary>🙆 회원 테이블</summary></details>
+<details><summary> 회원 테이블</summary>"CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(10) NOT NULL,
+    email VARCHAR(20) NOT NULL UNIQUE,
+    birth_date DATETIME NOT NULL, 
+    phone_number VARCHAR(13) UNIQUE,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    home_number VARCHAR(20) UNIQUE,
+    address VARCHAR(50) NOT NULL,
+    role ENUM('일반 사용자', '생산자') NOT NULL,
+    password_hash VARCHAR(100) NOT NULL
+);"</details>
 <details><summary>🏢 회사 테이블</summary></details>
 <details><summary>📋 이력서 테이블</summary></details>
 <details><summary>📣 채용 공고 테이블</summary></details>
