@@ -323,11 +323,70 @@
 </div>
 </div>
 </details>
-<details><summary>🔖  테이블</summary></details>
-<details><summary>🔖 태그 리뷰 테이블</summary></details>
-<details><summary>🔖 태그 테이블</summary></details>
-<details><summary>🔖 태그 리뷰 테이블</summary></details>
-
+<details><summary>🏔️ 지역 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Region (
+    region_id VARCHAR(10) PRIMARY KEY,
+    farm_id BIGINT NOT NULL,
+    latitude DECIMAL(8,6) NOT NULL,
+    longitude DECIMAL(9,6) NOT NULL,
+    FOREIGN KEY (farm_id) REFERENCES Farm(farm_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Region</span> (
+    region_id <span class="pl-k">VARCHAR</span>(<span class="pl-c1">10</span>) <span class="pl-k">PRIMARY KEY</span>,
+    farm_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    latitude <span class="pl-k">DECIMAL</span>(<span class="pl-c1">8</span>,<span class="pl-c1">6</span>) <span class="pl-k">NOT NULL</span>,
+    longitude <span class="pl-k">DECIMAL</span>(<span class="pl-c1">9</span>,<span class="pl-c1">6</span>) <span class="pl-k">NOT NULL</span>,
+    <span class="pl-k">FOREIGN KEY</span> (farm_id) <span class="pl-k">REFERENCES</span> Farm(farm_id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>🌞 날씨 데이터 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Weather (
+    observation_time DATETIME NOT NULL,
+    region_id VARCHAR(10) NOT NULL,
+    temp_avg FLOAT,
+    humidity FLOAT,
+    solar_radiation FLOAT,
+    PRIMARY KEY (observation_time, region_id),
+    FOREIGN KEY (region_id) REFERENCES Region(region_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Weather</span> (
+    observation_time <span class="pl-k">DATETIME</span> <span class="pl-k">NOT NULL</span>,
+    region_id <span class="pl-k">VARCHAR</span>(<span class="pl-c1">10</span>) <span class="pl-k">NOT NULL</span>,
+    temp_avg <span class="pl-k">FLOAT</span>,
+    humidity <span class="pl-k">FLOAT</span>,
+    solar_radiation <span class="pl-k">FLOAT</span>,
+    <span class="pl-k">PRIMARY KEY</span> (observation_time, region_id),
+    <span class="pl-k">FOREIGN KEY</span> (region_id) <span class="pl-k">REFERENCES</span> Region(region_id)
+)</pre>
+</div>
+</div>
+</details>
+<details><summary>🔭 예측 테이블</summary><div dir="auto">
+  <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE Predictions (
+    idx BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    crops_id BIGINT NOT NULL,
+    farm_id BIGINT,
+    predicted_harvest_date DATE,
+    predicted_quantity INT,
+    created_at DATE,
+    FOREIGN KEY (crops_id) REFERENCES Crops(id),
+    FOREIGN KEY (farm_id) REFERENCES Farm(farm_id)
+);">
+<pre><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">Predictions</span> (
+    idx <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span> <span class="pl-k">AUTO_INCREMENT</span> <span class="pl-k">PRIMARY KEY</span>,
+    crops_id <span class="pl-k">BIGINT</span> <span class="pl-k">NOT NULL</span>,
+    farm_id <span class="pl-k">BIGINT</span>,
+    predicted_harvest_date <span class="pl-k">DATE</span>,
+    predicted_quantity <span class="pl-k">INT</span>,
+    created_at <span class="pl-k">DATE</span>,
+    <span class="pl-k">FOREIGN KEY</span> (crops_id) <span class="pl-k">REFERENCES</span> Crops(id),
+    <span class="pl-k">FOREIGN KEY</span> (farm_id) <span class="pl-k">REFERENCES</span> Farm(farm_id)
+)</pre>
+</div>
+</div>
+</details>
 <br>
 
 <h2>📌 프로시저 구현</h2>
