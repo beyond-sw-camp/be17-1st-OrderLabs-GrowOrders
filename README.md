@@ -165,9 +165,9 @@
 </div>
 </div>
 </details>
-<details><summary>📣 채용 공고 테이블</summary></details>
-<details><summary>⏲ 지원 내역 테이블</summary></details>
-<details><summary>📎 스크랩 테이블</summary></details>
+<details><summary>👨‍🌾 농장 테이블</summary></details>
+<details><summary>⏲ 주문 테이블</summary></details>
+<details><summary>📎 재고 테이블</summary></details>
 <details><summary>⭐ 기업 리뷰 테이블</summary></details>
 <details><summary>🔖 태그 테이블</summary></details>
 <details><summary>🔖 태그 리뷰 테이블</summary></details>
