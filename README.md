@@ -384,7 +384,7 @@
 </details>
 <br><br>
 
-## SQL 튜닝
+## 🔧 SQL 튜닝
 <h4> Join문대신 Select 문을 사용하여 시간 단축 향상 </h4>
   
 <br>
