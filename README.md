@@ -563,12 +563,12 @@ ORDER BY
 <br>
 
 ```SQL
--> Sort: cs.growth_size DESC  (actual time=0.385..0.386 rows=18 loops=1)
-    -> Stream results  (cost=93.5 rows=72) (actual time=0.201..0.369 rows=18 loops=1)
-        -> Nested loop inner join  (cost=93.5 rows=72) (actual time=0.194..0.353 rows=18 loops=1)
-            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=1.55 rows=72) (actual time=0.159..0.162 rows=17 loops=1)
-            -> Filter: (cs.health_state = 'good')  (cost=2.51 rows=1) (actual time=0.0104..0.0109 rows=1.06 loops=17)
-                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=2.51 rows=10) (actual time=0.0099..0.0105 rows=3.41 loops=17)
+-> Sort: cs.growth_size DESC  (actual time=2.57..2.57 rows=18 loops=1)
+    -> Stream results  (cost=156 rows=72) (actual time=2.23..2.4 rows=18 loops=1)
+        -> Nested loop inner join  (cost=156 rows=72) (actual time=2.21..2.38 rows=18 loops=1)
+            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=3.8 rows=72) (actual time=0.273..0.277 rows=17 loops=1)
+            -> Filter: (cs.health_state = 'good')  (cost=10 rows=1) (actual time=0.104..0.105 rows=1.06 loops=17)
+                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=10 rows=10) (actual time=0.104..0.104 rows=3.41 loops=17)
 ```
 
    <br>
@@ -586,12 +586,12 @@ ORDER BY
 <br>
 
 ```SQL
--> Sort: cs.growth_size DESC  (actual time=0.326..0.327 rows=18 loops=1)
+-> Sort: cs.growth_size DESC  (actual time=0.255..0.257 rows=18 loops=1)
     -> Stream results  (cost=93.5 rows=72) (actual time=0.195..0.302 rows=18 loops=1)
-        -> Nested loop inner join  (cost=93.5 rows=72) (actual time=0.184..0.284 rows=18 loops=1)
-            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=1.55 rows=72) (actual time=0.0967..0.101 rows=17 loops=1)
-            -> Filter: (cs.health_state = 'good')  (cost=2.51 rows=1) (actual time=0.00978..0.0104 rows=1.06 loops=17)
-                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=2.51 rows=10) (actual time=0.00915..0.00983 rows=3.41 loops=17)
+        -> Nested loop inner join  (cost=93.5 rows=72) (actual time=0.0874..0.241 rows=18 loops=1)
+            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=1.55 rows=72) (actual time=0.0573..0.0609 rows=17 loops=1)
+            -> Filter: (cs.health_state = 'good')  (cost=2.51 rows=1) (actual time=0.0898..0.00948 rows=1.06 loops=17)
+                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=2.51 rows=10) (actual time=0.00845..0.00903 rows=3.41 loops=17)
 ```
 
 <br><br>
