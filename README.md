@@ -8,11 +8,24 @@
 
 ![Grafana](./images/Grafana.png)
 
+<br>
+
 - 프로젝트 기획서 작성
 - 요구사항 정의서 작성
 - ERD 작성
 - Database Architecture 작성
 - SQL 튜닝 (쿼리 구조 변경 및 Index 사용)
+
+<br>
+
+#### + 프로젝트 구성환경
+
+- Mariadb, 10.6.22 version 
+- Mysql, 8.0.42 version (EXPLAIN과 EXPLAIN ALYZE 확인용)
+- JMeter
+- Prometheus
+- Grafana
+
 
 <br>
 
@@ -24,9 +37,11 @@
 
 <div>
   <h3 align="center">
-    **"자라는 만큼만 주문받는다."** <br>
+    "자라는 만큼만 주문받는다."
   </h3>
 </div>
+
+ <br>
 
 이 서비스는 농·수산물의 생육 상태나 생물의 건강 데이터를 기반으로 주문 가능 여부를 
 자동 판단하고 관리하는 스마트 주문 관리 플랫폼입니다. 
@@ -37,7 +52,7 @@
 일정으로 상품을 수령할 수 있습니다. 
 생물은 자라야 팔 수 있습니다. <br><br>
 
-우리는 그 ‘자라는 과정’까지 주문 시스템에 담습니다.
+우리는 그 **자라는 과정**까지 주문 시스템에 담습니다.
 
 <br><br>
 
@@ -47,13 +62,13 @@
 
 |   <img src="https://avatars.githubusercontent.com/u/149382180?v=4" width="100" height="100"/>   |   <img src="https://avatars.githubusercontent.com/u/96688099?v=4" width="100" height="100"/>   | <img src="https://avatars.githubusercontent.com/u/195714592?v=4" width="100" height="100"/>  |  <img src="https://avatars.githubusercontent.com/u/92301360?v=4" width="100" height="100"/>  |    <img src="https://avatars.githubusercontent.com/u/201225844?v=4" width="100" height="100"/>      |
 | :--------------------------------------------------------: | :--------------------------------------------------------: | :--------------------------------------------------------: | :------------------------------------------------------: | :----------------------------------------------------------: |
-| 🐰 **양승우**<br/>[@atimaby28](https://github.com/miyad927) | 🧶 **이시욱**<br/>[@David9733](https://github.com/David9733) | ⚽ **구창모**<br/>[@kucha240](https://github.com/kucha240) | 🐢 **유현경**<br/>[@gaangstar](https://github.com/gaangstar) | 🐉 **윤소민**<br/>[@somminn](https://github.com/somminn) |
+| 🦊 **양승우**<br/>[@atimaby28](https://github.com/miyad927) | 🐻 **이시욱**<br/>[@David9733](https://github.com/David9733) | 🦎 **구창모**<br/>[@kucha240](https://github.com/kucha240) | 🐰 **유현경**<br/>[@gaangstar](https://github.com/gaangstar) | 🐱 **윤소민**<br/>[@somminn](https://github.com/somminn) |
 
 </div>
-<br>
 
+<br><br>
 
-## 🧶기획서 초안 작성
+## 🧶 기획서 초안 작성
 
 ![기획서](./images/Scenario.png)
 
@@ -61,7 +76,7 @@
 
 <br><br>
 
-## 🧩요구 사항 명세서 바로가기
+## 🧩 요구 사항 명세서 바로가기
 
 ![요구사항](./images/Requirements.png)
 
@@ -98,8 +113,12 @@
 ### - Why replication?
   운영 서버는 단일 DB 장애 시 전체 서비스가 중단되는 것을 막기 위해 데이터 복제(Data Replication)을 사용했습니다. 예를 들어, Master-Slave 구조로 구성해서 Master 장애 시 Slave로 자동 전환(Failover)이 가능하도록 했습니다. 이를 통해 서비스의 가용성과 안정성을 최우선으로 하였습니다.
 
+<br>
+
 ### - Why database clustering?
   작물 상태나 온도, 습도, 일사량 등의 실시간 기상 데이터가 끊기면 자동화 시스템이 오작동할 수 있어, 클러스터(Clustering)로 장애 대비를 했습니다.
+
+<br>
 
 ### - Why Calculate database?
   운영 DB에 부하를 주지 않고 분석 작업과 계산 작업을 수행하기 위해 별도의 데이터베이스를 사용했습니다. 시계열 데이터를 다룬다는 점과 집계 쿼리를 반복 수행하기 위해, 운영 서비스 성능에 영향을 주지 않도록 했습니다.
@@ -107,7 +126,23 @@
 <br><br>
 <h2>📌 Query Sample</h2>
 
+#### - Sample Image
+
   ![QuerySample](./images/Sample.png)
+
+```SQL
+SELECT cs.farm_id, c.item_name, cs.health_state, cs.growth_size, c.status, c.start_date
+FROM crops c
+JOIN crops_state cs ON c.id = cs.crops_id
+WHERE c.item_name LIKE '%토마토%'
+AND cs.health_state = 'good'
+AND c.status = 'growing'
+ORDER BY cs.growth_size DESC;
+```
+
+<br>
+
+#### - 특정 유저의 주문 내역 조회
 
 ```SQL
 --- 특정 유저의 주문 내역 조회 (주문 상태 및 작물 정보 포함)
@@ -134,6 +169,8 @@ ORDER BY o.date DESC;
 
 <br><br>
 
+#### - 특정 지역의 최신 기상 정보 조회
+
 ```SQL
 -- 특정 지역의 최신 기상 정보 조회
 SELECT 
@@ -155,6 +192,8 @@ LIMIT 1;
 
 
 <br><br>
+
+#### - 주문 및 배송 상태 조회
 
 ```SQL
 -- 주문 및 배송 상태 조회
@@ -190,6 +229,10 @@ ORDER BY
 
 
 <br><br>
+
+ #### + Table Query
+
+ <br>
 
 <details><summary> 🙆 사용자 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
@@ -498,31 +541,58 @@ ORDER BY
 ## 🔧 SQL 튜닝
 
 <h3> 쿼리 구조 변경 </h3>
-<h4> Join문대신 Select 문을 사용하여 시간 단축 향상 </h4>
+<h4> - Join문대신 Select 문을 사용하여 시간 단축 향상 </h4>
   
 <br>
 
-  ![OrderLabs-sql](./sql1.png)
+  ![OrderLabs-sql](./images/sql1.png)
 
-  ![OrderLabs-sql](./sql2.png)
+  ![OrderLabs-sql](./images/sql2.png)
 
   <br><br>
   users 1000, predictions 100, crops 100, orders 101000개의 데이터를 Full Scan 했을 떄, 속도가 0.063에서 0.047로 단축되었다.
 
   <br><br>
 
-  <h3> Index 적용 전 </h3>
+  <h3> Index 적용 </h3>
+
+  <h4> - Index 적용 전 </h4>
 
   ![Analyze](./images/Analyze.png)
 
-  <h3> Index 적용 후 </h3>
+<br>
+
+```SQL
+-> Sort: cs.growth_size DESC  (actual time=0.385..0.386 rows=18 loops=1)
+    -> Stream results  (cost=93.5 rows=72) (actual time=0.201..0.369 rows=18 loops=1)
+        -> Nested loop inner join  (cost=93.5 rows=72) (actual time=0.194..0.353 rows=18 loops=1)
+            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=1.55 rows=72) (actual time=0.159..0.162 rows=17 loops=1)
+            -> Filter: (cs.health_state = 'good')  (cost=2.51 rows=1) (actual time=0.0104..0.0109 rows=1.06 loops=17)
+                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=2.51 rows=10) (actual time=0.0099..0.0105 rows=3.41 loops=17)
+```
+
+   <br>
+
+  <h4> - Index 생성 화면 </h4>
 
   ![Index](./images/Index.png)
 
-  <br><br>
+  <br>
+
+  <h4> - Index 적용 후 </h4>
 
   ![Analyze](./images/AnalyzeIndex.png)
 
+<br>
+
+```SQL
+-> Sort: cs.growth_size DESC  (actual time=0.326..0.327 rows=18 loops=1)
+    -> Stream results  (cost=93.5 rows=72) (actual time=0.195..0.302 rows=18 loops=1)
+        -> Nested loop inner join  (cost=93.5 rows=72) (actual time=0.184..0.284 rows=18 loops=1)
+            -> Index lookup on c using idx (status='growing'), with index condition: ((c.`status` = 'growing') and (c.item_name like '%토마토%'))  (cost=1.55 rows=72) (actual time=0.0967..0.101 rows=17 loops=1)
+            -> Filter: (cs.health_state = 'good')  (cost=2.51 rows=1) (actual time=0.00978..0.0104 rows=1.06 loops=17)
+                -> Index lookup on cs using crops_id (crops_id=c.id)  (cost=2.51 rows=10) (actual time=0.00915..0.00983 rows=3.41 loops=17)
+```
 
 <br><br>
 <h2>📌 SQL 테스트</h2>
