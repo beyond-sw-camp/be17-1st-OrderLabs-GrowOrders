@@ -1,15 +1,31 @@
-![OrderLabs](https://github.com/user-attachments/assets/ef0f38de-3cbd-496c-9786-5433ce05b41c)
+![OrderLabs](./images/Banner.png)
 <h1 align="center" style="color: #50C878;"> OrderLabs 🌿</h1>
 
 
 <br><br>
 
+## 💭 프로젝트 개요
 
-## 🧑🏻‍🌾 프로젝트 개요
+![Grafana](./images/Grafana.png)
+
+- 프로젝트 기획서 작성
+- 요구사항 정의서 작성
+- ERD 작성
+- Database Architecture 작성
+- SQL 튜닝 (쿼리 구조 변경 및 Index 사용)
+
+<br>
+
+**JMeter**로 **Database**에 직접 부하를 주어 **Prometheus**와 **Grafana**를 통해 부하 양상을 시각적으로 관찰할 하였고, SQL 튜닝을 통해 성능 향상을 기대하였지만 데이터 수의 부족으로 극적인 성능 향상은 얻지 못했지만, Mariadb가 아닌 Mysql로 데이터 베이스를 변경하여 `EXPLAIN`과 `EXPLAIN ANALYZE` 문을 통해 성능 향상을 확인할 수 있었다.
+
+<br><br>
+
+## 🧑🏻‍🌾 프로젝트 소개
 
 <div>
-
-  **"자라는 만큼만 주문받는다."** <br>
+  <h3 align="center">
+    **"자라는 만큼만 주문받는다."** <br>
+  </h3>
 </div>
 
 이 서비스는 농·수산물의 생육 상태나 생물의 건강 데이터를 기반으로 주문 가능 여부를 
@@ -36,8 +52,19 @@
 </div>
 <br>
 
-## 🔗요구 사항 명세서 바로가기
-![요구사항](./02_요구사항%20정의서.png)
+
+## 🧶기획서 초안 작성
+
+![기획서](./images/Scenario.png)
+
+기획서 초안에 프로젝트 소개, 프로젝트 차별점, 사회적 타당성 및 필요성 등을 담으려 노력하였습니다.
+
+<br><br>
+
+## 🧩요구 사항 명세서 바로가기
+
+![요구사항](./images/Requirements.png)
+
 <div align="center">
   <a href="https://docs.google.com/spreadsheets/d/1xPRM4gAtze_Mu-vF_rwFMtvYI7baOceUvJYlSDdcA-o/edit?gid=1400486362#gid=1400486362" target="_blank">
     🔗 요구사항 명세서 바로가기
@@ -57,7 +84,7 @@
 <br><br>
 
 ## ⚙️ 시스템 아키텍처
-![04_Architecture](https://github.com/user-attachments/assets/496a6659-1655-485e-b1da-2552b3648dd5)
+![04_Architecture](04_Architecture.png)
 
 <br><br>
 
@@ -68,17 +95,101 @@
 
 <br><br>
 
-### Why replication?
+### - Why replication?
   운영 서버는 단일 DB 장애 시 전체 서비스가 중단되는 것을 막기 위해 데이터 복제(Data Replication)을 사용했습니다. 예를 들어, Master-Slave 구조로 구성해서 Master 장애 시 Slave로 자동 전환(Failover)이 가능하도록 했습니다. 이를 통해 서비스의 가용성과 안정성을 최우선으로 하였습니다.
 
-### Why database clustering?
+### - Why database clustering?
   작물 상태나 온도, 습도, 일사량 등의 실시간 기상 데이터가 끊기면 자동화 시스템이 오작동할 수 있어, 클러스터(Clustering)로 장애 대비를 했습니다.
 
-### Why Calculate database?
+### - Why Calculate database?
   운영 DB에 부하를 주지 않고 분석 작업과 계산 작업을 수행하기 위해 별도의 데이터베이스를 사용했습니다. 시계열 데이터를 다룬다는 점과 집계 쿼리를 반복 수행하기 위해, 운영 서비스 성능에 영향을 주지 않도록 했습니다.
 
 <br><br>
-<h2>📌 구축 쿼리 (DDL)</h2>
+<h2>📌 Query Sample</h2>
+
+  ![QuerySample](./images/Sample.png)
+
+```SQL
+--- 특정 유저의 주문 내역 조회 (주문 상태 및 작물 정보 포함)
+SELECT 
+    o.order_id,
+    o.date,
+    o.status,
+    o.quantity,
+    o.price,
+    c.item_name,
+    c.status AS crop_status
+FROM orders o
+JOIN crops c ON o.crop_id = c.id
+WHERE o.user_id = 3 -- 조회할 사용자 ID
+ORDER BY o.date DESC;
+```
+
+#### Sample Result
+
+|order_id|date|status|quantity|price|item_name|crop_status|
+|------|---|---|---|---|---|---|
+|3|2025-06-19|취소|2|4388|딸기|finished|
+
+
+<br><br>
+
+```SQL
+-- 특정 지역의 최신 기상 정보 조회
+SELECT 
+    w.observation_time,
+    w.temp_avg,
+    w.humidity,
+    w.solar_radiation
+FROM weather w
+WHERE w.region_id = 'R0056' -- 지역 코드
+ORDER BY w.observation_time DESC
+LIMIT 1;
+```
+
+#### Sample Result
+
+|observation_time|temp_avg|humidity|solar_radiation|
+|------|---|---|---|
+|2025-06-19 09:15:42|27.7|86.7|788.9|
+
+
+<br><br>
+
+```SQL
+-- 주문 및 배송 상태 조회
+SELECT 
+    o.order_id,
+    u.name AS customer_name,
+    c.item_name AS product_name,
+    o.quantity,
+    o.price,
+    o.status AS order_status,
+    d.delivery_status,
+    d.courier,
+    d.billing_number
+FROM 
+    orders o
+JOIN 
+    users u ON o.user_id = u.id
+JOIN 
+    crops c ON o.crop_id = c.id
+LEFT JOIN 
+    delivery d ON o.order_id = d.delivery_id
+WHERE 
+    o.status NOT IN ('cancelled', 'completed')
+ORDER BY 
+    o.date DESC;
+```
+
+#### Sample Result
+
+|order_id|customer_name|product_name|quantity|price|order_status|delivery_status|billing_number|
+|------|---|---|---|---|---|---|---|
+|46|황혜진|토마토|1|4209|완료|delivered|**택배|4320302486|
+
+
+<br><br>
 
 <details><summary> 🙆 사용자 테이블</summary><div dir="auto">
   <div class="highlight highlight-source-sql notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="CREATE TABLE users (
@@ -385,6 +496,8 @@
 <br><br>
 
 ## 🔧 SQL 튜닝
+
+<h3> 쿼리 구조 변경 </h3>
 <h4> Join문대신 Select 문을 사용하여 시간 단축 향상 </h4>
   
 <br>
@@ -398,9 +511,20 @@
 
   <br><br>
 
-  이후에는 인덱스 적용 및 반정규화를 통해 데이터베이스 쿼리 성능을 향상시키고, JMeter로 부하 테스트를 진행한 뒤, Prometheus와 Grafana를 활용해 성능 변화 양상을 시각적으로 관찰할 예정이다.
+  <h3> Index 적용 전 </h3>
 
-<br>
+  ![Analyze](./images/Analyze.png)
+
+  <h3> Index 적용 후 </h3>
+
+  ![Index](./images/Index.png)
+
+  <br><br>
+
+  ![Analyze](./images/AnalyzeIndex.png)
+
+
+<br><br>
 <h2>📌 SQL 테스트</h2>
 <div align="center">
   <a href="https://www.notion.so/SQL-21785def4f6d80e2a9e0dc591210f5d7" target="_blank">🔗 SQL 테스트 바로가기</a>
